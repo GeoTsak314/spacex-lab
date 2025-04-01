@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SpaceX station resources</title>
+  <script>
+    async function loadResources() {
+      const res = await fetch("http://localhost:5000/resources");
+      const data = await res.json();
+      const container = document.getElementById("resource-list");
+      container.innerHTML = data.map(r => `<li>${r.name} - ${r.quantity}</li>`).join('');
+    }
+
+    async function addResource() {
+      const name = document.getElementById("name").value;
+      const quantity = document.getElementById("quantity").value;
+      await fetch("http://localhost:5000/resources", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({name, quantity: Number(quantity)})
+      });
+      loadResources();
+    }
+  </script>
+</head>
+<body onload="loadResources()">
+  <h1>Resources</h1>
+  <ul id="resource-list"></ul>
+
+  <h3>Add Resource</h3>
+  <input id="name" placeholder="name">
+  <input id="quantity" placeholder="quantity" type="number">
+  <button onclick="addResource()">Add</button>
+</body>
+</html>
