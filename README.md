@@ -1,4 +1,5 @@
 # SpaceX Stock CRUD App
+G. Tsakalos (8200259)
 
 ## Setup
 
